@@ -1,0 +1,57 @@
+header{
+    background-color: wheat;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    margin-bottom: 60px;
+    align-items: center;
+    font-size: x-large;
+}
+body{
+    margin: 0;
+    background-image: url("../images/img.png");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#p1{
+    font-size: x-large;
+    padding-top: 30px;
+    color: #000000;
+    text-align: center;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color: #535139;
+   text-decoration: none;
+}
+.person{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 70px;
+    width: 70%;
+    margin: 30px auto;
+
+}
+.opys{
+    text-align: center;
+    width: 400px;
+    font-size: 18px;
+}
+.opys p{
+    text-align: start;
+}
+.all{
+    background-color: wheat;
+    border-radius: 28px;
+    width: 60%;
+    height: 70%;
+    margin: auto;
+
+}

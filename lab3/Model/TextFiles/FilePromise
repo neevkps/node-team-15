@@ -1,0 +1,33 @@
+[{
+  "id": 1,
+  "name": "Айфон 13",
+  "place": "Київ",
+  "email": "ivan@gmail.com",
+  "phone": "123-456-789",
+  "keyWords": "айфон"
+},
+{
+  "id": 2,
+  "name": "Сумка DIOR",
+  "place": "Київ",
+  "email": "ivan@gmail.com",
+  "phone": "123-456-789",
+  "keyWords": "сумка"
+},
+{
+  "id": 3,
+  "name": "Ніж-бабочка",
+  "place": "Одеса",
+  "email": "vova@gmail.com",
+  "phone": "123-456-789",
+  "keyWords": "ніж"
+},
+{
+  "id": 4,
+  "name": "Гаманець жіночий",
+  "place": "Луцьк",
+  "email": "ivan@gmail.com",
+  "phone": "123-456-789",
+  "keyWords": "гаманець"
+
+}]

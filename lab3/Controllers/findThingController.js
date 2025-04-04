@@ -1,16 +1,14 @@
 import {getAllThings} from "../Model/Services/ThingService.js";
-export function FindThing(req, res) {
+export function findThing(req, res) {
     try {
-        const { keyWord } = req.body.toString();
+        const keyWord = req.body.keyWord;
 
-        // Перевірка, чи отримано keyWord, і чи це рядок
-        if (!keyWord || typeof keyWord !== "string") {
+        if (!keyWord) {
             return res.status(400).json({ message: "Некоректний запит: keyWord обов'язковий і має бути рядком" });
         }
 
         let findthings = getAllThings();
 
-        // Перевірка, чи getAllThings() повернув масив
         if (!Array.isArray(findthings)) {
             return res.status(500).json({ message: "Помилка сервера: getAllThings() повернув некоректні дані" });
         }
@@ -20,10 +18,11 @@ export function FindThing(req, res) {
             item.keyWords.toLowerCase().includes(keyWord.toLowerCase())
         );
 
-        res.json({
-            message: results.length > 0 ? "Знайдені речі" : "Нічого не знайдено",
-            data: results
-        });
+        let output = results.length > 0
+            ? "Знайдені речі:<br>" + results.map(item => `<b>${item.name}</b> (${item.place}) <br>`).join('')
+            : "<p>Нічого не знайдено</p>";
+
+        res.send(output);
     } catch (error) {
         res.status(500).json({ message: "Помилка сервера", error: error.message });
     }

@@ -9,8 +9,12 @@
 <h1>Список речей</h1>
 <ul>
         <% things.forEach((thing) => { %>
-        <li><%= thing.name %>, <%= thing.place%> </li>
-        <% }); %>
+        <li>
+            <a href="/<%= thing.id %>">
+                <%= thing.name %>, <%= thing.place %>
+            </a>
+        </li>
+    <% }); %>
 </ul>
 <ul>
 

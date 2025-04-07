@@ -1,24 +1,15 @@
 <head>
-<!--    <link rel="stylesheet" href="dinamic.css">-->
 </head>
 <header>
-<!--    <img src="../images/arrowleft.png" width="20px" alt="" style="margin-right: 10px">-->
     <a href="/">Головна сторінка</a>
 </header>
 
-<ul>
-    <% things.forEach(thing => { %>
-        <% if (thing && thing.name && thing.phoneNumber) { %>
-            <li><%= thing.name %>, <%= thing.phoneNumber %></li>
-        <% } %>
-    <% }); %>
-</ul>
 
 <div class="all">
     <p id="p1"><%=name%></p>
-    <div class="img"><img src="<%= img %>" alt="" width="300" height="300"></div>
     <div class="desc">
-        <p><%= description %></p>
+        <p>Знайдено в місті <%= place %></p>
+        <p>Контактні дані людини що знайшла <br> <%= email %> <br> <%= phone %></p>
     </div>
 
 

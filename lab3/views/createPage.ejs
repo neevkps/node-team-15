@@ -4,13 +4,16 @@
     <a href="/">Головна сторінка</a>
 </header>
 
-
 <div class="all">
     <p id="p1"><%=name%></p>
     <div class="desc">
         <p>Знайдено в місті <%= place %></p>
-        <p>Контактні дані людини що знайшла <br> <%= email %> <br> <%= phone %></p>
+        <p>Опис: <%= description%></p>
+        <p>Контактні дані людини, що знайшла: <br> <%= phone %></p>
     </div>
-
-
 </div>
+
+<form method="POST" action="/deleteThing">
+    <input type="hidden" name="id" value="<%=id%>" >
+    <button type="submit">Видалити</button>
+</form>

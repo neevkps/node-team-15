@@ -17,14 +17,24 @@ async function readFileAsyncAwait(filePath) {
 readFileAsyncAwait(filePathAsync).then(() => console.log(things));
 /////////////////////async/await
 
-export function getAllThingsFromBD(){
+export function getAllThingsFromDB(){
    return things
 }
 
-export function addThingToBD(thing) {
+export function addThingToDB(thing) {
     things.push(thing);
+    console.log(things);
 }
 
-export function deleteThingFromBD(thing){
-    things.pop(thing);
+
+export function deleteThingFromDB(id) {
+    console.log("Масив речей:", things); // лог для перевірки
+    const index = things.findIndex(t => t.id === id); // використовуємо строгий порівняльний оператор (===)
+    console.log(things[index])
+    if (index !== -1) {
+        things.splice(index, 1); // видалення
+        return true;
+    }
+    return false;
 }
+

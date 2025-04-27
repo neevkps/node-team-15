@@ -1,10 +1,10 @@
 import { Thing } from "../Model/Services/ThingService.js";
-import { addThingToBD } from "../Model/DataAccess/Database.js";
+import { addThingToDB } from "../Model/DataAccess/Database.js";
 
 export function addThing(req, res) {
-    const {id, name, description, keyWords, place, phoneNumber } = req.body;
-    const thing = new Thing(id, name, description, keyWords, place, phoneNumber);
-    addThingToBD(thing);
+    const  thing = req.body;
+    const id= Date.now();
+    addThingToDB({...thing, id});
     res.redirect("/MainPage.html");
 }
 

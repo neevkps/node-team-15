@@ -9,10 +9,11 @@ export const getThingfor = (req, res) =>{
     const thing = things.find(t => t.id ===  Number(req.params.id));
     if (thing) {
         res.render("createPage", {
+            id: thing.id,
             name: thing.name,
             place: thing.place,
-            email: thing.email,
-            phone: thing.phone
+            description: thing.description,
+            phone: thing.phoneNumber
         });
     } else {
         res.status(404).send("Предмет не знайдено");

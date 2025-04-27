@@ -1,12 +1,12 @@
-import {getAllThingsFromBD} from "../DataAccess/Database.js";
+import {deleteThingFromDB, getAllThingsFromDB} from "../DataAccess/Database.js";
 
 export function getAllThings(){
-    return getAllThingsFromBD()
+    return getAllThingsFromDB()
 }
 
 export class Thing {
     constructor(id, name, description, keyWords, place, phoneNumber) {
-        this.id = Date.now();
+        this.id = id;
         this.name = name;
         this.description = description;
         this.keyWords = keyWords;
@@ -15,6 +15,9 @@ export class Thing {
     }
 }
 
+export function deleteThingService(id) {
+    return deleteThingFromDB(id);
+}
 
 
 

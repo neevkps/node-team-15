@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма для додавання</title>
+</head>
+<body>
+<form id="FormData" method="POST" action="/addThing">
+    <input type="hidden" name="id">
+    <label>Назва речі<input type="text" name="name" required placeholder="Назва"></label><br>
+    <label>Опис<input type="text" name="description" required placeholder="Опис речі"></label><br>
+    <label>Ключові слова<input type="text" name="keyWords" required placeholder="Ключові слова"> </label><br>
+    <label>Місце знахідки<input type="text" name="place" required placeholder="Місце знахідки"></label><br>
+    <label>Ваш номер телефону: <input type="tel" name="phoneNumber" required placeholder="Номер телефону"></label><br>
+    <label>Ваш email: <input type="email" name="email" required placeholder="email"></label><br>
+    <button id="b1" type="submit">Додати знахідку</button>
+</form>
+<button><a href="MainPage.html">Головна</a></button>
+</body>
+</html>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+
+    if (message) {
+        alert(message);
+        window.location.href='MainPage.html';
+    }
+</script>

@@ -22,10 +22,12 @@ export const getThingfor = async (req, res) =>{
             name: thing.name,
             place: thing.place,
             description: thing.description,
+            keyWords: thing.keyWords,
             phone: thing.phoneNumber,
             email: thing.email,
         });
     }
 };
+
 
 export default{getThings, getThingfor}

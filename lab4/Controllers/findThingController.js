@@ -16,7 +16,7 @@ export async function findThing(req, res) {
         );
 
         let output = results.length > 0
-            ? "Знайдені речі:<br>" + results.map(item => `<b>${item.name}</b> (${item.place}) <br>`).join('')
+            ? "Знайдені речі:<br>" + results.map(item => `<a href="/thing/${item.id}"><b>${item.name}</b> (${item.place}) <br></a>`).join('')
             : "<p>Нічого не знайдено</p>";
 
         res.send(output);

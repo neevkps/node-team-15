@@ -3,14 +3,14 @@ import sql from "mssql"
 
 let things = {}
 
-export const SQLConfig={
-    user:'tania',
-    password:'20060404vbn',
-    database:'noda',
-    server:'localhost',
-    options:{
-        encrypt:false,
-        trustServerCertificate:true
+const SQLConfig = {
+    user: 'Cucumber',
+    password: '1657udte',
+    database: 'Cucumbao',
+    server: 'localhost',
+    options: {
+        encrypt: false,
+        trustServerCertificate: true
     }
 };
 const pool = await
@@ -66,6 +66,38 @@ class Database{
             return [];
         }
     }
+    static async updateThing(data, id) {
+        if (!pool) {
+            throw new Error('Database connection is not initialized');
+        }
+
+        try {
+            const result = await pool.request()
+                .input("id", id)
+                .input("name", data.name)
+                .input("place", data.place)
+                .input("description", data.description)
+                .input("keyWords", data.keyWords)
+                .query(`
+                UPDATE Things
+                SET name = @name,
+                    place = @place,
+                    description = @description,
+                    keyWords = @keyWords
+                WHERE id = @id
+            `);
+
+            if (result.rowsAffected[0] === 0) {
+                return { success: false, message: "Запис не знайдено" };
+            }
+
+            return { success: true };
+        } catch (error) {
+            console.error("Помилка при оновленні речі:", error);
+            return { success: false, error: error.message };
+        }
+    }
+
 
 }
 

@@ -17,6 +17,6 @@
     <input type="hidden" name="id" value="<%=id%>" >
     <button type="submit">Видалити</button>
 </form>
-
-<script>
-</script>
+<button onclick="window.location.href='/updateThingPage?id=<%= id%>&name=<%= name%>&place=<%= place%>&description=<%= description%>&keyWords=<%= keyWords%>'">
+    Оновити інформацію про річ
+</button>

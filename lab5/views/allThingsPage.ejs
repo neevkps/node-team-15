@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Список речей</title>
+</head>
+<body>
+<header><a href="/">Головна сторінка</a></header>
+
+<h1>Список речей</h1>
+<ul>
+    <% things.forEach(function(thing) { %>
+        <li>
+            <a href="/thing/<%= thing.id %>">
+                <%= thing.name %>, <%= thing.place %>
+            </a>
+        </li>
+    <% }) %>
+</ul>
+
+</body>
+</html>

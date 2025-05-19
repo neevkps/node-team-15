@@ -4,16 +4,16 @@ import sql from "mssql"
 let things = {}
 
 export const SQLConfig={
-    user:'neevkps',
-    password:'2611',
-    database:'vovadaun',
+    user:'tania',
+    password:'20060404vbn',
+    database:'noda',
     server:'localhost',
     options:{
         encrypt:false,
         trustServerCertificate:true
     }
 };
-const pool =await
+const pool = await
     sql.connect(SQLConfig);
 class Database{
     static async addThing(name, phoneNumber, description, place, email, keyWords){

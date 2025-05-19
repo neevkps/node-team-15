@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма для редагування</title>
+</head>
+<body>
+<h1>Оновіть інформацію про річ</h1>
+<form action="/updateThing" method="POST">
+    <input type="hidden" name="thingId" value="<%= thingId %>">
+
+    <label for="thingName">Назва речі</label>
+    <input type="text" id="thingName" name="thingName" value="<%= thingName %>">
+
+    <label for="place">Місце</label>
+    <input type="text" id="place" name="place" value="<%= place %>">
+
+    <label for="description">Опис</label>
+    <input type="text" id="description" name="description" value="<%= description %>">
+
+    <label for="keyWords">Ключові слова</label>
+    <input type="text" id="keyWords" name="keyWords" value="<%= keyWords %>">
+
+    <button type="submit">Оновити</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<head>
+</head>
+<header>
+    <a href="/">Головна сторінка</a>
+</header>
+
+<div class="all">
+    <p id="p1"><%=thingName%></p>
+    <div class="desc">
+        <p>Знайдено в місті <%= place %></p>
+        <p>Опис: <%= description%></p>
+        <p>Контактні дані людини, що знайшла: <br> <%= name %> <br> <%= phoneNumber%><br>  <%=email%></p>
+    </div>
+</div>
+
+<form id="deleteForm" method="POST" action="/deleteThing">
+    <input type="hidden" name="id" value="<%=id%>" >
+    <button type="submit">Видалити</button>
+</form>
+<button onclick="window.location.href='/updateThingPage?thingId=<%= id%>&thingName=<%= thingName%>&place=<%= place%>&description=<%= description%>&keyWords=<%= keyWords%>'">
+    Оновити інформацію про річ
+</button>
+<script>
+</script>

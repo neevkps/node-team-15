@@ -4,7 +4,6 @@ import Database from "../Model/DataAccess/Database.js";
 export const updateThing = async (req, res) => {
     const t = await sequelize.transaction();
     try {
-        console.log(req.body)
         const id = req.params.id;
         const {thingName, place, description, keyWords } = req.body;
 

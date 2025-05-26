@@ -6,20 +6,18 @@
 </head>
 <body>
 <h1>Оновіть інформацію про річ</h1>
-<form id="updateForm" method="POST" action="#">
-    <label for="thingId"></label>
-    <input type="hidden" id="thingId">
+<form >
     <label for="thingName">Назва речі</label>
-    <input type="text" id="thingName">
+    <input type="text" id="thingName" name="thingName">
 
     <label for="place">Місце</label>
-    <input type="text" id="place">
+    <input type="text" id="place" name="place">
 
     <label for="description">Опис</label>
-    <input type="text" id="description">
+    <input type="text" id="description" name="description">
 
     <label for="keyWords">Ключові слова</label>
-    <input type="text" id="keyWords">
+    <input type="text" id="keyWords" name="keyWords">
 
     <button type="submit" id="update">Оновити</button>
 </form>
@@ -32,21 +30,29 @@
         .then(data => {
             if (data) {
                 const thing = data;
-                const id = document.getElementById('thingId');
                 const name = document.getElementById('thingName');
                 const place = document.getElementById('place');
                 const description = document.getElementById('description');
                 const keyWords = document.getElementById('keyWords');
-                id.value = thing.id
                 name.value = thing.name;
                 place.value = thing.place;
                 description.value = thing.description;
                 keyWords.value = thing.keyWords;
+            }  else {
+                result.textContent = 'Нічого не знайдено.';
+            }
+            if (data.alertMessage) {
+                const message = document.createElement('p');
+                message.textContent = data.alertMessage;
+                result.appendChild(message);
             }
         })
+        .catch(err => {
+            console.error('Помилка запиту:', err);
+            document.getElementById('listOfThings').textContent = 'Помилка завантаження.';
+        });
 
-
-    document.getElementById("updateForm").addEventListener("submit", (event) => {
+    document.getElementById("update").addEventListener("click", (event) => {
         event.preventDefault();
 
         const body = {
@@ -55,9 +61,8 @@
             description: document.getElementById('description').value,
             keyWords: document.getElementById('keyWords').value
         };
-        console.log("Дані для оновлення:", body);
 
-        fetch(`/thing/update/${id}`, {
+        fetch(`/things/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -68,6 +73,10 @@
                 if (res.ok) {
                     alert("Річ успішно оновлена.");
                     window.location.href = "/allThings.html";
+                } else {
+                    return res.json().then(data => {
+                        alert(data.alertMessage || "Помилка під час оновлення.");
+                    });
                 }
             })
             .catch(err => {

@@ -11,7 +11,7 @@ router.get("/things", thingController.getThings)
 router.get("/thing/:id", thingController.getThingfor);
 router.delete("/things/:id", deleteThing )
 router.get("/things/search", findThing)
-router.put("/things/update/:id", updateThing)
+router.put("/things/:id", updateThing)
 
 app.use("/users", router)
 

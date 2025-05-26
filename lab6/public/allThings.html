@@ -3,39 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <title>Список речей</title>
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+        }
+        .pagination ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .pagination li {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .pagination a {
+            color: #333;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #333;
+            border-radius: 3px;
+        }
+
+        .pagination a:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
 <header><a href="/">Головна сторінка</a></header>
 
 <h1>Список речей</h1>
 <ul id="listOfThings"></ul>
+
+<div class="pagination">
+    <ul></ul>
+</div>
+
 <script>
-    fetch('/things')
-        .then(res => res.json())
-        .then(data => {
-            const list = document.getElementById('listOfThings');
+    let currentPage = 1;
+    const limit = 5;
 
-            if (data.things.length) {
-                data.things.forEach(thing => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<a href="/ThingInformation.html?id=${thing.id}">${thing.name}: ${thing.description}</a>`;
-                    list.appendChild(li);
-                });
+    function fetchThings(page) {
 
-            }  else {
-                list.textContent = 'Нічого не знайдено.';
+        console.log(page);
+
+
+        fetch(`/things?page=${page}&limit=${limit}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+
+            })
+
+            .then(data => {
+                console.log("Отримані дані з сервера:", data);
+
+                const list = document.getElementById('listOfThings');
+                list.innerHTML = "";
+
+                if (data.things.length) {
+                    data.things.forEach(thing => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<a href="/ThingInformation.html?id=${thing.id}">${thing.name}: ${thing.description}</a>`;
+                        list.appendChild(li);
+                    });
+                } else {
+                    list.textContent = 'Нічого не знайдено.';
+                }
+
+                renderPagination(data.total, data.page, data.limit);
+            })
+            .catch(err => {
+                console.error('Помилка запиту:', err);
+                document.getElementById('listOfThings').textContent = 'Помилка завантаження.';
+            });
+    }
+
+    function renderPagination(total, currentPage, limit) {
+        const pagination = document.querySelector(".pagination ul");
+        pagination.innerHTML = "";
+
+        const totalPages = Math.ceil(total / limit);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href ="#";
+            a.textContent = i;
+
+            if (i === currentPage) {
+                a.style.fontWeight = "bold";
+                a.style.backgroundColor = "#ddd";
             }
-            if (data.alertMessage) {
-                const message = document.createElement('p');
-                message.textContent = data.alertMessage;
-                list.appendChild(message);
-            }
-        })
-        .catch(err => {
-            console.error('Помилка запиту:', err);
-            document.getElementById('listOfThings').textContent = 'Помилка завантаження.';
-        });
 
+            a.addEventListener("click", (e) => {
+                e.preventDefault();
+                fetchThings(i);
+            });
+
+            li.appendChild(a);
+            pagination.appendChild(li);
+        }
+    }
+
+    // Запуск при завантаженні сторінки
+    fetchThings(currentPage);
 </script>
 </body>
 </html>

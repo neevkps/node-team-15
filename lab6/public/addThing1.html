@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма для додавання</title>
+</head>
+<body>
+<h1>Додайте контактну інформацію про себе та річ</h1>
+<form id="addForm">
+    <input type="text"  id="name" placeholder="Ім'я">
+    <input type="text"  id="phoneNumber" placeholder="Телефон">
+    <input type="email" id="email" placeholder="Email">
+
+    <input type="text" id="thingName" placeholder="Назва речі">
+    <input type="text" id="place" placeholder="Місце">
+    <input type="text" id="description" placeholder="Опис">
+    <input type="text" id="keyWords" placeholder="Ключові слова">
+
+    <button type="submit">Додати</button>
+</form>
+
+</body>
+</html>
+<script>
+    document.getElementById("addForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const body = {
+            name: document.getElementById("name").value,
+            phoneNumber: document.getElementById("phoneNumber").value,
+            email: document.getElementById("email").value,
+            thingName: document.getElementById('thingName').value,
+            place: document.getElementById('place').value,
+            description: document.getElementById('description').value,
+            keyWords: document.getElementById('keyWords').value
+        };
+        console.log("Дані для додавання:", body);
+
+        fetch(`/thing/add`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Річ успішно додано.");
+                    window.location.href = "/allThings.html";
+                }
+            })
+            .catch(err => {
+                console.error("Помилка:", err);
+                alert("Сталася помилка.");
+            });
+    });
+</script>

@@ -4,9 +4,9 @@ import sql from "mssql"
 let things = {}
 
 const SQLConfig = {
-    user: 'Cucumber',
-    password: '1657udte',
-    database: 'Cucumbao',
+    user: 'neevkps',
+    password: '2611',
+    database: 'vovadaun',
     server: 'localhost',
     options: {
         encrypt: false,

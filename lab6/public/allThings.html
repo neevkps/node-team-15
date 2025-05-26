@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Список речей</title>
+</head>
+<body>
+<header><a href="/">Головна сторінка</a></header>
+
+<h1>Список речей</h1>
+<ul id="listOfThings"></ul>
+<script>
+    fetch('/things')
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById('listOfThings');
+
+            if (data.things.length) {
+                data.things.forEach(thing => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="/ThingInformation.html?id=${thing.id}">${thing.name}: ${thing.description}</a>`;
+                    list.appendChild(li);
+                });
+
+            }  else {
+                list.textContent = 'Нічого не знайдено.';
+            }
+            if (data.alertMessage) {
+                const message = document.createElement('p');
+                message.textContent = data.alertMessage;
+                list.appendChild(message);
+            }
+        })
+        .catch(err => {
+            console.error('Помилка запиту:', err);
+            document.getElementById('listOfThings').textContent = 'Помилка завантаження.';
+        });
+
+</script>
+</body>
+</html>

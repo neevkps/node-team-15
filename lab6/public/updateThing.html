@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма для редагування</title>
+</head>
+<body>
+<h1>Оновіть інформацію про річ</h1>
+<form id="updateForm" method="POST" action="#">
+    <label for="thingId"></label>
+    <input type="hidden" id="thingId">
+    <label for="thingName">Назва речі</label>
+    <input type="text" id="thingName">
+
+    <label for="place">Місце</label>
+    <input type="text" id="place">
+
+    <label for="description">Опис</label>
+    <input type="text" id="description">
+
+    <label for="keyWords">Ключові слова</label>
+    <input type="text" id="keyWords">
+
+    <button type="submit" id="update">Оновити</button>
+</form>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    fetch(`/thing/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data) {
+                const thing = data;
+                const id = document.getElementById('thingId');
+                const name = document.getElementById('thingName');
+                const place = document.getElementById('place');
+                const description = document.getElementById('description');
+                const keyWords = document.getElementById('keyWords');
+                id.value = thing.id
+                name.value = thing.name;
+                place.value = thing.place;
+                description.value = thing.description;
+                keyWords.value = thing.keyWords;
+            }
+        })
+
+
+    document.getElementById("updateForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const body = {
+            thingName: document.getElementById('thingName').value,
+            place: document.getElementById('place').value,
+            description: document.getElementById('description').value,
+            keyWords: document.getElementById('keyWords').value
+        };
+        console.log("Дані для оновлення:", body);
+
+        fetch(`/thing/update/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Річ успішно оновлена.");
+                    window.location.href = "/allThings.html";
+                }
+            })
+            .catch(err => {
+                console.error("Помилка:", err);
+                alert("Сталася помилка.");
+            });
+    });
+</script>
+</body>
+</html>

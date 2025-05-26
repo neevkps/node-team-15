@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Інформація про річ</title>
+</head>
+<body>
+<header><a href="/">Головна сторінка</a></header>
+<div id="information"></div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+
+    fetch(`/thing/${id}?t=${Date.now()}`) // додаємо унікальний параметр для уникнення кешу
+        .then(res => res.json())
+        .then(data => {
+            const result = document.getElementById('information');
+            result.innerHTML = ''; // очищення перед вставкою
+
+            if (data) {
+                const thing = data;
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <h2>${thing.name}</h2>
+                    <p><strong>Місце:</strong> ${thing.place}</p>
+                    <p><strong>Опис:</strong> ${thing.description}</p>
+                    <p><strong>Ключові слова:</strong> ${thing.keyWords}</p>
+                    <p><strong>Контактні дані:</strong><br>
+                        ${thing.User.name}<br>
+                        ${thing.User.phoneNumber}<br>
+                        ${thing.User.email}
+                    </p>
+                    <button id="update">Редагувати</button>
+                    <button id="delete">Видалити</button>
+                `;
+                result.appendChild(div);
+
+                // Події на кнопки
+                document.getElementById("update").addEventListener("click", () => {
+                    window.location.href = `updateThing.html?id=${thing.id}`;
+                });
+
+                document.getElementById("delete").addEventListener("click", (event) => {
+                    event.preventDefault();
+                    if (confirm("Ви впевнені, що хочете видалити цю річ?")) {
+                        fetch(`/things/${id}`, {
+                            method: "DELETE"
+                        })
+                            .then(res => {
+                                if (res.ok) {
+                                    alert("Річ успішно видалена.");
+                                    window.location.href = "/allThings.html";
+                                } else {
+                                    return res.json().then(data => {
+                                        alert(data.alertMessage || "Помилка під час видалення.");
+                                    });
+                                }
+                            })
+                            .catch(err => {
+                                console.error("Помилка:", err);
+                                alert("Сталася помилка.");
+                            });
+                    }
+                });
+
+            } else {
+                result.textContent = 'Нічого не знайдено.';
+            }
+        })
+        .catch(err => {
+            console.error('Помилка запиту:', err);
+            const result = document.getElementById('information');
+            result.textContent = 'Помилка завантаження.';
+        });
+</script>
+</body>
+</html>

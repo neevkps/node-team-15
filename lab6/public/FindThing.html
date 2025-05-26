@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<script></script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Знайти річ</title>
+</head>
+<header><a href="/">Головна сторінка</a></header>
+<body>
+<form id="searchForm">
+    <label>Введіть ключове слово:
+        <input type="text" name="keyWord" id="keyWordInput">
+    </label><br>
+    <button type="submit">Знайти</button>
+</form>
+
+<div id="results"></div>
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // зупиняє перезавантаження сторінки
+
+        const keyWord = document.getElementById('keyWordInput').value;
+
+        fetch(`/things/search?keyWord=${encodeURIComponent(keyWord)}`)
+            .then(res => res.json())
+            .then(data => {
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = ''; // очищення
+
+                if (Array.isArray(data) && data.length > 0) {
+                    const ul = document.createElement('ul');
+                    data.forEach(thing => {
+                        const li = document.createElement('li');
+                        li.textContent = `${thing.name}: ${thing.description}`;
+                        ul.appendChild(li);
+                    });
+                    resultsDiv.appendChild(ul);
+                } else if (data.message) {
+                    resultsDiv.textContent = data.message;
+                } else {
+                    resultsDiv.textContent = 'Нічого не знайдено.';
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById('results').textContent = 'Помилка при запиті.';
+            });
+    });
+</script>
+</body>
+</html>

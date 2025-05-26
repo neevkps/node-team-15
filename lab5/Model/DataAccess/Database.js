@@ -2,7 +2,7 @@ import {Sequelize, Model, DataTypes, Op} from "sequelize";
 import sql from "mssql"
 
 let things = {}
-export const sequelize = new Sequelize("noda5","tania", "20060404vbn",{
+export const sequelize = new Sequelize("lab5","neevkps", "2611",{
     dialect: "mssql",
     host: "localhost",
     port: "1433",

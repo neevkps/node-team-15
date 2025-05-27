@@ -3,39 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Список речей</title>
-    <style>
-        .pagination {
-            display: flex;
-            justify-content: center;
-        }
-        .pagination ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .pagination li {
-            display: inline-block;
-            margin-right: 5px;
-        }
-
-        .pagination a {
-            color: #333;
-            text-decoration: none;
-            padding: 5px 10px;
-            border: 1px solid #333;
-            border-radius: 3px;
-        }
-
-        .pagination a:hover {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/allThing.css">
 </head>
 <body>
 <header><a href="/">Головна сторінка</a></header>
 
 <h1>Список речей</h1>
-<ul id="listOfThings"></ul>
+<ul class="thing-list" id="listOfThings"></ul>
 
 <div class="pagination">
     <ul></ul>
@@ -43,7 +17,7 @@
 
 <script>
     let currentPage = 1;
-    const limit = 5;
+    const limit = 7;
 
     function fetchThings(page) {
 

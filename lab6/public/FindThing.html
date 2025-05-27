@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <title>Знайти річ</title>
 </head>
-<header><a href="/">Головна сторінка</a></header>
+<link rel="stylesheet" href="styles/findThing.css">
 <body>
+<header><a href="/">Головна сторінка</a></header>
 <form id="searchForm">
     <label>Введіть ключове слово:
         <input type="text" name="keyWord" id="keyWordInput">
@@ -32,7 +33,7 @@
                     const ul = document.createElement('ul');
                     data.forEach(thing => {
                         const li = document.createElement('li');
-                        li.textContent = `${thing.name}: ${thing.description}`;
+                        li.innerHTML = `<a href="/ThingInformation.html?id=${thing.id}">${thing.name}: ${thing.description}</a>`;
                         ul.appendChild(li);
                     });
                     resultsDiv.appendChild(ul);
